@@ -1,4 +1,6 @@
 import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,12 +104,38 @@ public class StudentDatabase {
     }
 
     public void loadFromFile() {
-        // to be implemented
+        try {
+            BufferedReader fr = new BufferedReader(new FileReader(this.filename));
+            students.clear();
+            String line;
+
+            while ((line = fr.readLine()) != null) {
+                Student s = readLine(line);
+                students.add(s);
+            }
+
+            fr.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while trying to load data: " + e.getMessage());
+        }
 
     }
 
     private String lineRepresentation(Student student) {
         return student.getStudentId() + "," + student.getFname() + "," + student.getGender() + "," +
                 student.getDepartment() + "," + student.getGPA() + "," + student.getAge();
+    }
+
+    private Student readLine(String line) {
+        String[] parts = line.split(",");
+        int studentId = Integer.getInteger(parts[0]);
+        String fname = parts[1];
+        String gender = parts[2];
+        String department = parts[3];
+        float gpa = Float.parseFloat(parts[4]);
+        int age = Integer.getInteger(parts[5]);
+
+        Student student = new Student(studentId, fname, age, gender, department, gpa);
+        return student;
     }
 }
