@@ -73,6 +73,13 @@ public class Student  {
         this.GPA = GPA;
     }
 
+    public void setAge(int Age) {
+        if (!Validation.isValidAge(Age)) {
+            throw new IllegalArgumentException("Invalid Age");
+        }
+        this.Age = Age;
+    }
+
     // Getters
     public int getStudentId() {
         return StudentId;
@@ -92,6 +99,10 @@ public class Student  {
 
     public float getGPA() {
         return GPA;
+    }
+
+    public int getAge() {
+        return Age;
     }
 
 }
