@@ -25,6 +25,10 @@ public class StudentDatabase {
         return true;
     }
 
+    public void deleteStudent(Student student) {
+        deleteStudent(student.getStudentId());
+    }
+
     public boolean deleteStudent(int studentId) {
         boolean removed = students.removeIf(s -> s.getStudentId() == studentId);
 
