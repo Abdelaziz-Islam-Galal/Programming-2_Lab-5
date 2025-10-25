@@ -87,16 +87,15 @@ public class StudentDatabase {
 
     }
 
-    public void saveToFile() throws IOException {
-        try{
-        FileWriter fw = new FileWriter(this.filename, false);
-        for (int i = 0; i < students.size(); i++) {
-            fw.write(lineRepresentation(students.get(i)) + "\n");
-        }
+    public void saveToFile() {
+        try {
+            FileWriter fw = new FileWriter(this.filename, false);
+            for (int i = 0; i < students.size(); i++) {
+                fw.write(lineRepresentation(students.get(i)) + "\n");
+            }
 
-        fw.close();
-        }
-        catch(IOException e){
+            fw.close();
+        } catch (IOException e) {
             System.out.println("An error occurred while trying to save data: " + e.getMessage());
             return;
         }
