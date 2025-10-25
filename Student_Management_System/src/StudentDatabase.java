@@ -128,12 +128,12 @@ public class StudentDatabase {
 
     private Student readLine(String line) {
         String[] parts = line.split(",");
-        int studentId = Integer.getInteger(parts[0]);
+        int studentId = Integer.parseInt(parts[0]);
         String fname = parts[1];
         String gender = parts[2];
         String department = parts[3];
         float gpa = Float.parseFloat(parts[4]);
-        int age = Integer.getInteger(parts[5]);
+        int age = Integer.parseInt(parts[5]);
 
         Student student = new Student(studentId, fname, age, gender, department, gpa);
         return student;
