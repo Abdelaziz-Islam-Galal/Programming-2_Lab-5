@@ -57,7 +57,32 @@ public class StudentDatabase {
     }
 
     public void UpdateStudent(Student updatedStudent) {
-      // to be implemented
+        Student unupdatedStudent = searchStudentById(updatedStudent.getStudentId());
+        if (unupdatedStudent != null) {
+            unupdatedStudent.setFname(updatedStudent.getFname());
+            unupdatedStudent.setDepartment(updatedStudent.getDepartment());
+            unupdatedStudent.setAge(updatedStudent.getAge());
+            unupdatedStudent.setGPA(updatedStudent.getGPA());
+            unupdatedStudent.setGender(updatedStudent.getGender());
+            saveToFile();
+        } else {
+            List<Student> result = searchStudentByName(updatedStudent.getFname());
+            if(result.size() == 1) {
+                unupdatedStudent = result.get(0);
+                unupdatedStudent.setStudentId(updatedStudent.getStudentId());
+                unupdatedStudent.setDepartment(updatedStudent.getDepartment());
+                unupdatedStudent.setAge(updatedStudent.getAge());
+                unupdatedStudent.setGPA(updatedStudent.getGPA());
+                unupdatedStudent.setGender(updatedStudent.getGender());
+                saveToFile();
+            } else{
+                if(result.size() > 1) {
+                    throw new IllegalArgumentException("Multiple students found with the same name; use Student ID to update.");
+                } else {
+                    throw new IllegalArgumentException("Student not found.");
+                }
+            }
+        }
 
     }
 
