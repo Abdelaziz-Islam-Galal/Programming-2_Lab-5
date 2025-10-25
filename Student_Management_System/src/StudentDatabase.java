@@ -30,7 +30,12 @@ public class StudentDatabase {
     }
 
     public boolean deleteStudent(int studentId) {
-        boolean removed = students.removeIf(s -> s.getStudentId() == studentId);
+        Student student = searchStudentById(studentId);
+        if (student == null) {
+            return false;
+        }
+
+        boolean removed = students.remove(student);
 
         if (removed) {
             saveToFile();
