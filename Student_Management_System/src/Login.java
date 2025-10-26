@@ -29,16 +29,23 @@ public class Login extends JFrame {
 
     private void processInput() {
         String username = usernameField.getText();
-        String passwrod = new String(passwordField.getPassword()); //Arrays.toString(passwordField.getPassword());
-
-        if(username.trim().isEmpty() || passwrod.trim().isEmpty()) {
+        String password = new String(passwordField.getPassword()); //Arrays.toString(passwordField.getPassword());
+        if(username == null)
+            System.out.println("2a7eih");
+        if(username.trim().isEmpty() || password.trim().isEmpty()) {
             JOptionPane.showMessageDialog(LoginContainer, "Please fill all the fields");
         }
-//        if(checkCredentials(username,passwrod)) {
-//            opeenMainWindow();
-//            // close this panel
-//
-//        }
+        if(checkCredentials(username,password)) {
+            MainWindow mainWindow = new MainWindow();
+            setVisible(false);
+            usernameField.setText("");
+            passwordField.setText("");
+        }
+        else {
+            JOptionPane.showMessageDialog(LoginContainer, "Invalid Credentials");
+            passwordField.setText("");
+            password = "";
+        }
 
     }
 
