@@ -45,9 +45,7 @@ public class Login extends JFrame {
         if(checkCredentials(username,password)) {
             System.out.println("Login Successful");
             MainWindow mainWindow = new MainWindow();
-            setVisible(false);
-            usernameField.setText("");
-            passwordField.setText("");
+            dispose();
         }
         else {
             JOptionPane.showMessageDialog(LoginContainer, "Invalid Credentials");
