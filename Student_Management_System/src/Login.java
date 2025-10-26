@@ -29,7 +29,7 @@ public class Login extends JFrame {
 
     private void processInput() {
         String username = usernameField.getText();
-        String passwrod = Arrays.toString(passwordField.getPassword());
+        String passwrod = new String(passwordField.getPassword()); //Arrays.toString(passwordField.getPassword());
 
         if(username.trim().isEmpty() || passwrod.trim().isEmpty()) {
             JOptionPane.showMessageDialog(LoginContainer, "Please fill all the fields");
