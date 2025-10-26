@@ -1,16 +1,10 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.*;
+import java.util.List;
 
 public class MainWindow extends JFrame {
-
-    private JPanel mainPanel;
-    private JButton addStudentBtn;
-    private JButton viewStudentsBtn;
-    private JButton deleteStudentBtn;
-    private JButton updateStudentBtn;
-    private JButton searchStudentBtn;
-    private JButton logoutBtn;
+    private JTabbedPane tabbedPane;
     private JPanel dashboard;
     private JPanel view;
     private JPanel add;
@@ -21,6 +15,9 @@ public class MainWindow extends JFrame {
     private JLabel gender;
     private JLabel department;
     private JLabel gpa;
+    private JLabel name;
+    private JScrollPane table_scroll;
+    private JPanel mainPanel;
 
     public MainWindow() {
 
@@ -34,58 +31,29 @@ public class MainWindow extends JFrame {
         pack();
         setVisible(true);
 
-
-        addStudentBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AddStudentWindow();
-                dispose();
-            }
-        });
+        StudentDatabase data = initTable();
 
 
-        viewStudentsBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new ViewStudentsWindow();
-                dispose();
-            }
-        });
+    }
 
+    private StudentDatabase initTable() {
+        String[] cols = {"ID", "Name", "Age", "Gender", "Department", "GPA"};
+        DefaultTableModel studentModel = new DefaultTableModel(cols, 0);
+        students.setModel(studentModel);
 
-        deleteStudentBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new DeleteStudentWindow();
-                dispose();
-            }
-        });
+        StudentDatabase data = new StudentDatabase();
 
-
-        updateStudentBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new UpdateStudentWindow();
-                dispose();
-            }
-        });
-
-
-        searchStudentBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new SearchStudentWindow();
-                dispose();
-            }
-        });
-
-
-        logoutBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new Login();
-                dispose();
-            }
-        });
+        List<Student> students = data.getAllStudents();
+        for (Student s : students) {
+            studentModel.addRow(new Object[]{
+                    s.getStudentId(),
+                    s.getFname(),
+                    s.getAge(),
+                    s.getGender(),
+                    s.getDepartment(),
+                    s.getGPA()
+            });
+        }
+        return data;
     }
 }
