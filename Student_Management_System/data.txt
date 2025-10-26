@@ -1,2 +1,4 @@
 1,Alice,male,Computer Science,3.5,20
 7,Bob,male,Software Engineering,3.7,22
+8378,Heiih,Male,Computer Engineering,0.2,38
+1111,Final b'aa,Female,Civil Engineering,2.0,17
