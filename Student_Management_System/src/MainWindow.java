@@ -10,12 +10,6 @@ public class MainWindow extends JFrame {
     private JPanel add;
     private JPanel search;
     private JTable students;
-    private JLabel id;
-    private JLabel age;
-    private JLabel gender;
-    private JLabel department;
-    private JLabel gpa;
-    private JLabel name;
     private JScrollPane table_scroll;
     private JPanel mainPanel;
     private JPanel AddPanel;
@@ -39,6 +33,8 @@ public class MainWindow extends JFrame {
         setContentPane(mainPanel);
         pack();
         setVisible(true);
+
+        initTable();
     }
 
     private StudentDatabase initTable() {
