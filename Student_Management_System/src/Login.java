@@ -11,8 +11,12 @@ public class Login extends JFrame {
     private JLabel Title;
     private JButton submit;
     private JPanel LoginContainer;
+    
+    private HashMap<String, String> users;
 
     public Login() {
+        users = new HashMap<>();
+        loadUsers();
         setVisible(true);
         setSize(400,400);
         setContentPane(LoginContainer);
@@ -32,11 +36,11 @@ public class Login extends JFrame {
         String password = new String(passwordField.getPassword()); //Arrays.toString(passwordField.getPassword());
         if(username.trim().isEmpty() || password.trim().isEmpty()) {
             JOptionPane.showMessageDialog(LoginContainer, "Please fill all the fields");
+            return;
         }
         if(checkCredentials(username,password)) {
-            System.out.println("Entered before that");
+            System.out.println("Login Successful");
             MainWindow mainWindow = new MainWindow();
-            System.out.println("entered after init");
             setVisible(false);
             usernameField.setText("");
             passwordField.setText("");
@@ -50,9 +54,22 @@ public class Login extends JFrame {
     }
 
     private boolean checkCredentials(String username, String passwrod) {
-        if(username.equals("admin") && passwrod.equals("1234")) {
-            return true;
-        }
-        return false;
+      return users.containsKey(username) && users.get(username).equals(password);
     }
+
+    private void loadUsers() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    users.put(parts[0], parts[1]); 
+                }
+            }
+            System.out.println("Loaded " + users.size() + " users");
+        } catch (IOException e) {
+            System.err.println("Error reading users.txt: " + e.getMessage());
+        }
+    }
+    
 }
