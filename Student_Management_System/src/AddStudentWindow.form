@@ -101,8 +101,10 @@
           <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-16713156"/>
           <font size="16"/>
-          <foreground color="-16713156"/>
+          <foreground color="-1"/>
+          <opaque value="true"/>
           <text value="Add"/>
         </properties>
       </component>
