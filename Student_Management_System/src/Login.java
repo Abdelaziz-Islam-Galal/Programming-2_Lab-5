@@ -30,13 +30,13 @@ public class Login extends JFrame {
     private void processInput() {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword()); //Arrays.toString(passwordField.getPassword());
-        if(username == null)
-            System.out.println("2a7eih");
         if(username.trim().isEmpty() || password.trim().isEmpty()) {
             JOptionPane.showMessageDialog(LoginContainer, "Please fill all the fields");
         }
         if(checkCredentials(username,password)) {
+            System.out.println("Entered before that");
             MainWindow mainWindow = new MainWindow();
+            System.out.println("entered after init");
             setVisible(false);
             usernameField.setText("");
             passwordField.setText("");
