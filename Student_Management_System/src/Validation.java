@@ -8,10 +8,6 @@ public class Validation {
         return studentId > 0;
     }
 
-    public static boolean isValidGender(String gender) {
-        return (gender != null && (gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female"))); //equalsIgnoreCase is used to ignore case sensitivity
-    }
-
     public static boolean isValidAge(int age) {
         return age > 15 && age < 40;
     }
