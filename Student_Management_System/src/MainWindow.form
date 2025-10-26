@@ -1,81 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="MainWindow">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="5" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="0" left="0" bottom="0" right="0"/>
+  <tabbedpane id="b3179">
     <constraints>
-      <xy x="12" y="13" width="612" height="634"/>
+      <xy x="12" y="13" width="510" height="634"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <component id="366c2" class="javax.swing.JButton" binding="searchStudentBtn">
+      <grid id="4c28a" binding="dashboard" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="2" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <tabbedpane title="Dashboard"/>
         </constraints>
-        <properties>
-          <text value="Search (Student)"/>
-        </properties>
-      </component>
-      <component id="ad620" class="javax.swing.JButton" binding="updateStudentBtn">
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="608d" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Hello Admin"/>
+            </properties>
+          </component>
+          <vspacer id="4b5fd">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+        </children>
+      </grid>
+      <grid id="55b69" binding="view" layout-manager="GridLayoutManager" row-count="2" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <tabbedpane title="View Students"/>
         </constraints>
-        <properties>
-          <text value="Update Student Info."/>
-        </properties>
-      </component>
-      <component id="9436b" class="javax.swing.JButton" binding="viewStudentsBtn">
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="fa1f2" class="javax.swing.JTable" binding="students">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="6" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="28c79" class="javax.swing.JLabel" binding="id">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="ID"/>
+            </properties>
+          </component>
+          <component id="e23bc" class="javax.swing.JLabel" binding="name">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Name"/>
+            </properties>
+          </component>
+          <component id="a5af0" class="javax.swing.JLabel" binding="age">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Age"/>
+            </properties>
+          </component>
+          <component id="86fbb" class="javax.swing.JLabel" binding="gender">
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Gender"/>
+            </properties>
+          </component>
+          <component id="78e9a" class="javax.swing.JLabel" binding="department">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Department"/>
+            </properties>
+          </component>
+          <component id="a43bf" class="javax.swing.JLabel" binding="gpa">
+            <constraints>
+              <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="GPA"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="75c4f" binding="add" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="3" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <tabbedpane title="Add Student"/>
         </constraints>
-        <properties>
-          <text value="View Students List"/>
-        </properties>
-      </component>
-      <component id="7d3de" class="javax.swing.JButton" binding="deleteStudentBtn">
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <grid id="a8698" binding="search" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <tabbedpane title="Search for a Student"/>
         </constraints>
-        <properties>
-          <text value="Delete Student"/>
-        </properties>
-      </component>
-      <component id="8cced" class="javax.swing.JButton" binding="logoutBtn">
-        <constraints>
-          <grid row="4" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Logout"/>
-        </properties>
-      </component>
-      <component id="e3fff" class="javax.swing.JButton" binding="addStudentBtn">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Add Student"/>
-        </properties>
-      </component>
-      <component id="cb5c8" class="javax.swing.JTextField" binding="clickOnTheNeededTextField" default-binding="true">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="6" vsize-policy="4" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Click on the Needed Operation"/>
-        </properties>
-      </component>
-      <component id="5423f" class="javax.swing.JLabel" binding="Welcome">
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="108" height="160"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Welcome, Admin!"/>
-        </properties>
-      </component>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
     </children>
-  </grid>
+  </tabbedpane>
 </form>

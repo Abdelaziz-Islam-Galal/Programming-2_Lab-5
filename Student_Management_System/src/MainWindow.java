@@ -11,8 +11,16 @@ public class MainWindow extends JFrame {
     private JButton updateStudentBtn;
     private JButton searchStudentBtn;
     private JButton logoutBtn;
-    private JTextField clickOnTheNeededTextField;
-    private JLabel Welcome;
+    private JPanel dashboard;
+    private JPanel view;
+    private JPanel add;
+    private JPanel search;
+    private JTable students;
+    private JLabel id;
+    private JLabel age;
+    private JLabel gender;
+    private JLabel department;
+    private JLabel gpa;
 
     public MainWindow() {
 
