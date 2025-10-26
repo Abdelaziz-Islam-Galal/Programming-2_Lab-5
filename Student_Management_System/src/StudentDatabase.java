@@ -9,8 +9,9 @@ public class StudentDatabase {
     private final String filename = "data.txt";
     private List<Student> students;
 
-    public StudentDatabase(List<Student> students) {
-        this.students = students;
+    public StudentDatabase() {
+        students=new ArrayList<Student>();
+        loadFromFile();
     }
 
     public boolean addStudent(Student student) {
@@ -112,7 +113,7 @@ public class StudentDatabase {
         }
     }
 
-    public void loadFromFile() {
+    private void loadFromFile() {
         try {
             BufferedReader fr = new BufferedReader(new FileReader(this.filename));
             students.clear();
