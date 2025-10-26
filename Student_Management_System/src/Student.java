@@ -19,9 +19,9 @@ public class Student  {
         if (!Validation.isValidAge(Age)) {
             throw new IllegalArgumentException("Invalid Age");
         }
-        if (!Validation.isValidGender(Gender)) {
-            throw new IllegalArgumentException("Invalid Gender");
-        }
+//        if (!Validation.isValidGender(Gender)) {
+//            throw new IllegalArgumentException("Invalid Gender");
+//        }
         if (!Validation.isValidString(Department)) {
             throw new IllegalArgumentException("Invalid Department");
         }
@@ -53,9 +53,9 @@ public class Student  {
     }
 
     public void setGender(String Gender) {
-        if (!Validation.isValidGender(Gender)) {
-            throw new IllegalArgumentException("Invalid gender");
-        }
+//        if (!Validation.isValidGender(Gender)) {
+//            throw new IllegalArgumentException("Invalid gender");
+//        }
         this.Gender = Gender;
     }
 

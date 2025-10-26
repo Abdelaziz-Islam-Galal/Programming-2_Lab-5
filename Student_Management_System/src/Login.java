@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.*;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedReader;
 
 public class Login extends JFrame {
     private JPasswordField passwordField;
@@ -53,7 +57,7 @@ public class Login extends JFrame {
 
     }
 
-    private boolean checkCredentials(String username, String passwrod) {
+    private boolean checkCredentials(String username, String password) {
       return users.containsKey(username) && users.get(username).equals(password);
     }
 

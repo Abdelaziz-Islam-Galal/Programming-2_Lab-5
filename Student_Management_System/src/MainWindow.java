@@ -18,6 +18,15 @@ public class MainWindow extends JFrame {
     private JLabel name;
     private JScrollPane table_scroll;
     private JPanel mainPanel;
+    private JPanel AddPanel;
+    private JTextField nameField;
+    private JTextField ageField;
+    private JComboBox GenderBox;
+    private JComboBox DepartBox;
+    private JTextField GPAField;
+    private JButton addButton;
+    private JTextField IDField;
+    private JLabel IDLabel;
 
     public MainWindow() {
 
@@ -30,10 +39,6 @@ public class MainWindow extends JFrame {
         setContentPane(mainPanel);
         pack();
         setVisible(true);
-
-        StudentDatabase data = initTable();
-
-
     }
 
     private StudentDatabase initTable() {

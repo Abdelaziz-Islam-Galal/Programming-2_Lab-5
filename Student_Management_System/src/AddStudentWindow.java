@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddStudentWindow {
+public class AddStudentWindow extends JPanel{
 
     private JPanel AddPanel;
     private JTextField nameField;
@@ -63,13 +63,5 @@ public class AddStudentWindow {
                 JOptionPane.showMessageDialog(AddPanel,"Student added successfully", "Input Error", JOptionPane.INFORMATION_MESSAGE);
             }
         });
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Add Student");
-        frame.setContentPane(new AddStudentWindow().AddPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
     }
 }
