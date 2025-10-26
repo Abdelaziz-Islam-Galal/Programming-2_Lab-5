@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDatabase {
-    private final String filename = "data.txt";
+    private final String filename = "data.txt.txt";
     private List<Student> students;
 
     public StudentDatabase() {
@@ -108,7 +108,7 @@ public class StudentDatabase {
 
             fw.close();
         } catch (IOException e) {
-            System.out.println("An error occurred while trying to save data: " + e.getMessage());
+            System.out.println("An error occurred while trying to save data.txt: " + e.getMessage());
             return;
         }
     }
@@ -126,7 +126,7 @@ public class StudentDatabase {
 
             fr.close();
         } catch (IOException e) {
-            System.out.println("An error occurred while trying to load data: " + e.getMessage());
+            System.out.println("An error occurred while trying to load data.txt: " + e.getMessage());
         }
 
     }
