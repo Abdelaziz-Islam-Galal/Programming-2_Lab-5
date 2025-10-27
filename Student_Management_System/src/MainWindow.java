@@ -74,10 +74,25 @@ public class MainWindow extends JFrame {
 
     private void initTables(StudentDatabase data) {
         String[] cols = {"ID", "Name", "Age", "Gender", "Department", "GPA"};
-        DefaultTableModel ViewModel = new DefaultTableModel(cols, 0);
+        DefaultTableModel ViewModel = new DefaultTableModel(cols, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Make table non-editable
+            }
+        };
         DefaultTableModel SearchModel = new DefaultTableModel(cols, 0);
+        DefaultTableModel DeleteModel = new DefaultTableModel(cols, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Make table non-editable
+            }
+        };
+        // I made it view and delete tables are edit proof
+        // Note -> search table is editable because it will have the update functionality
+
         ViewTable.setModel(ViewModel);
         SearchTable.setModel(SearchModel);
+        DeleteTable.setModel(DeleteModel);
 
         List<Student> studentList = data.getAllStudents();
         for (Student s : studentList) {
@@ -90,6 +105,14 @@ public class MainWindow extends JFrame {
                     s.getGPA()
             });
             SearchModel.addRow(new Object[]{
+                    s.getStudentId(),
+                    s.getFname(),
+                    s.getAge(),
+                    s.getGender(),
+                    s.getDepartment(),
+                    s.getGPA()
+            });
+            DeleteModel.addRow(new Object[]{
                     s.getStudentId(),
                     s.getFname(),
                     s.getAge(),
@@ -148,6 +171,8 @@ public class MainWindow extends JFrame {
             }
         });
 
+
+
     }
 
     private void addStudentPanel(StudentDatabase data) {
@@ -172,7 +197,7 @@ public class MainWindow extends JFrame {
 
             clearAddStudentsFields();
 
-            refreshTable(data);
+            refreshTables(data);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Please enter valid numbers for Age, ID, and GPA",
                     "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -188,13 +213,25 @@ public class MainWindow extends JFrame {
         DepartBox_AddPanel.setSelectedIndex(0);
     }
 
-    private void refreshTable(StudentDatabase data) {
-        DefaultTableModel model = (DefaultTableModel) ViewTable.getModel();
-        model.setRowCount(0); // Clear existing rows
+    private void refreshTables(StudentDatabase data) {
+        DefaultTableModel view = (DefaultTableModel) ViewTable.getModel();
+        // DefaultTableModel search = (DefaultTableModel) ViewTable.getModel(); -> updates intseld everytime the button is used
+        DefaultTableModel delete = (DefaultTableModel) DeleteTable.getModel();
+
+        view.setRowCount(0);
+        delete.setRowCount(0);
 
         List<Student> studentList = data.getAllStudents();
         for (Student s : studentList) {
-            model.addRow(new Object[]{
+            view.addRow(new Object[]{
+                    s.getStudentId(),
+                    s.getFname(),
+                    s.getAge(),
+                    s.getGender(),
+                    s.getDepartment(),
+                    s.getGPA()
+            });
+            delete.addRow(new Object[]{
                     s.getStudentId(),
                     s.getFname(),
                     s.getAge(),
