@@ -1,10 +1,5 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
 
 public class MainWindow extends JFrame {
     private JTabbedPane tabbedPane;
@@ -34,6 +29,13 @@ public class MainWindow extends JFrame {
     private JTable SearchTable;
     private JTable DeleteTable;
     private JButton UpdateButton_SearchPanel;
+    private JTextField updateName;
+    private JLabel ageLabel;
+    private JTextField updateAge;
+    private JComboBox updateGenderComboBox;
+    private JComboBox updateDepartComboBox;
+    private JTextField updateGpa;
+    private JTextField updateId;
 
     public MainWindow() {
         setTitle("Student Management System");
@@ -54,9 +56,18 @@ public class MainWindow extends JFrame {
                 tables
         );
         SearchAndUpdateLogic searchAndUpdateLogic = new SearchAndUpdateLogic(
+                tables,
+                SearchTable,
                 KeyBox_SearchPanel,
                 KeyField_SearchPanel,
                 SearchButton_SearchPanel,
+                UpdateButton_SearchPanel,
+                updateName,
+                updateAge,
+                updateGenderComboBox,
+                updateDepartComboBox,
+                updateGpa,
+                updateId,
                 (DefaultTableModel) SearchTable.getModel(),
                 data
         );

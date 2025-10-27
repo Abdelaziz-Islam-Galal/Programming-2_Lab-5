@@ -24,7 +24,7 @@ public class TablesLogic {
         model = new DefaultTableModel(cols, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Make table non-editable
+                return false;
             }
         };
 
@@ -46,9 +46,10 @@ public class TablesLogic {
     public void refreshTable() {
         DefaultTableModel model1 = (DefaultTableModel) table1.getModel();
         DefaultTableModel model2 = (DefaultTableModel) table2.getModel();
-
+        DefaultTableModel model3 = (DefaultTableModel) table3.getModel();
         model1.setRowCount(0);
         model2.setRowCount(0);
+        model3.setRowCount(0);
 
         List<Student> studentList = data.getAllStudents();
         for (Student s : studentList) {
@@ -61,6 +62,14 @@ public class TablesLogic {
                     s.getGPA()
             });
             model2.addRow(new Object[]{
+                    s.getStudentId(),
+                    s.getFname(),
+                    s.getAge(),
+                    s.getGender(),
+                    s.getDepartment(),
+                    s.getGPA()
+            });
+            model3.addRow(new Object[]{
                     s.getStudentId(),
                     s.getFname(),
                     s.getAge(),
