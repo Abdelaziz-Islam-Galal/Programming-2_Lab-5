@@ -64,6 +64,7 @@ public class MainWindow extends JFrame {
         DepartBox.addItem("Civil Engineering");
         DepartBox.addItem("Biomedical Engineering");
     }
+
     private void addStudent() {
         try {
             String name = nameField.getText();
@@ -72,41 +73,29 @@ public class MainWindow extends JFrame {
             String department = DepartBox.getSelectedItem().toString();
             float gpa = Float.parseFloat(GPAField.getText());
             int id = Integer.parseInt(IDField.getText());
-            Validation validation = new Validation();
-            if (!validation.isValidString(name)) {
-                JOptionPane.showMessageDialog(this, "Invalid Name", "Input Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!validation.isValidAge(age)) {
-                JOptionPane.showMessageDialog(this, "Invalid age", "Input Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!validation.isValidInt(id)) {
-                JOptionPane.showMessageDialog(this, "Invalid ID", "Input Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!validation.isValidGPA(gpa)) {
-                JOptionPane.showMessageDialog(this, "Invalid GPA", "Input Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+
             Student s1 = new Student(id, name, age, gender, department, gpa);
             StudentDatabase sdb = new StudentDatabase();
+
             if (!sdb.addStudent(s1)) {
                 JOptionPane.showMessageDialog(this, "Student not added (Student id already exists)",
                         "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
             JOptionPane.showMessageDialog(this, "Student added successfully",
                     "Success", JOptionPane.INFORMATION_MESSAGE);
-            // Clear fields after successful addition
+
             clearFields();
-            // Refresh the table
+
             refreshTable();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter valid numbers for Age, ID, and GPA",
+        }
+        catch(IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Input Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     private void clearFields() {
         nameField.setText("");
         ageField.setText("");
@@ -115,9 +104,10 @@ public class MainWindow extends JFrame {
         GenderBox.setSelectedIndex(0);
         DepartBox.setSelectedIndex(0);
     }
+
     private void refreshTable() {
         DefaultTableModel model = (DefaultTableModel) students.getModel();
-        model.setRowCount(0); // Clear existing rows
+        model.setRowCount(0);
         StudentDatabase data = new StudentDatabase();
         List<Student> studentList = data.getAllStudents();
         for (Student s : studentList) {
