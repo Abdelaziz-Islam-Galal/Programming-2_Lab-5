@@ -3,3 +3,4 @@
 8378,Heiih,Male,Computer Engineering,0.2,38
 1111,Final b'aa,Female,Civil Engineering,2.0,17
 1906,xyr,Other,Biomedical Engineering,0.1,33
+12,whaat,Male,Mechanical Engineering,3.5,18

@@ -73,23 +73,7 @@ public class MainWindow extends JFrame {
             String department = DepartBox.getSelectedItem().toString();
             float gpa = Float.parseFloat(GPAField.getText());
             int id = Integer.parseInt(IDField.getText());
-            Validation validation = new Validation();
-            if (!validation.isValidString(name)) {
-                JOptionPane.showMessageDialog(this, "Invalid Name", "Input Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!validation.isValidAge(age)) {
-                JOptionPane.showMessageDialog(this, "Invalid age", "Input Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!validation.isValidInt(id)) {
-                JOptionPane.showMessageDialog(this, "Invalid ID", "Input Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!validation.isValidGPA(gpa)) {
-                JOptionPane.showMessageDialog(this, "Invalid GPA", "Input Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+
             Student s1 = new Student(id, name, age, gender, department, gpa);
             StudentDatabase sdb = new StudentDatabase();
 
@@ -105,8 +89,9 @@ public class MainWindow extends JFrame {
             clearFields();
 
             refreshTable();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter valid numbers for Age, ID, and GPA",
+        }
+        catch(IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Input Error", JOptionPane.ERROR_MESSAGE);
         }
     }
