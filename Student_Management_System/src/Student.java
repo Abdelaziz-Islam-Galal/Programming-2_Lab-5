@@ -37,7 +37,7 @@ public class Student  {
     }
 
         
-    // Setters with validation
+
     public void setStudentId(int studentId) {
         if (!Validation.isValidInt(studentId)) {
             throw new IllegalArgumentException("Invalid student ID");
@@ -80,7 +80,7 @@ public class Student  {
         this.Age = Age;
     }
 
-    // Getters
+
     public int getStudentId() {
         return StudentId;
     }
