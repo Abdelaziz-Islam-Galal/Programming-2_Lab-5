@@ -11,12 +11,6 @@ public class MainWindow extends JFrame {
     private JPanel add;
     private JPanel search;
     private JTable students;
-    private JLabel id;
-    private JLabel age;
-    private JLabel gender;
-    private JLabel department;
-    private JLabel gpa;
-    private JLabel name;
     private JScrollPane table_scroll;
     private JPanel mainPanel;
     private JPanel AddPanel;
@@ -30,18 +24,22 @@ public class MainWindow extends JFrame {
     private JLabel IDLabel;
     private JButton logout;
     private JLabel image;
+    private JPanel Del;
+    private JButton button1;
 
     public MainWindow() {
         setTitle("Student Management System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        StudentDatabase data = new StudentDatabase();
         // Initialize the combo boxes
         initializeComboBoxes();
         // Add button action listener
-        addButton.addActionListener(e -> addStudent());
+        addButton.addActionListener(e -> addStudent(data));
         setContentPane(mainPanel);
         // Initialize the table
-        initTable();
+
+        initTable(data);
         pack();
         setVisible(true);
 
@@ -64,8 +62,7 @@ public class MainWindow extends JFrame {
         DepartBox.addItem("Civil Engineering");
         DepartBox.addItem("Biomedical Engineering");
     }
-
-    private void addStudent() {
+    private void addStudent(StudentDatabase data) {
         try {
             String name = nameField.getText();
             int age = Integer.parseInt(ageField.getText());
@@ -75,9 +72,8 @@ public class MainWindow extends JFrame {
             int id = Integer.parseInt(IDField.getText());
 
             Student s1 = new Student(id, name, age, gender, department, gpa);
-            StudentDatabase sdb = new StudentDatabase();
 
-            if (!sdb.addStudent(s1)) {
+            if (!data.addStudent(s1)) {
                 JOptionPane.showMessageDialog(this, "Student not added (Student id already exists)",
                         "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -87,11 +83,10 @@ public class MainWindow extends JFrame {
                     "Success", JOptionPane.INFORMATION_MESSAGE);
 
             clearFields();
-
-            refreshTable();
-        }
-        catch(IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(),
+            // Refresh the table
+            refreshTable(data);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter valid numbers for Age, ID, and GPA",
                     "Input Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -104,11 +99,10 @@ public class MainWindow extends JFrame {
         GenderBox.setSelectedIndex(0);
         DepartBox.setSelectedIndex(0);
     }
-
-    private void refreshTable() {
+    private void refreshTable(StudentDatabase data) {
         DefaultTableModel model = (DefaultTableModel) students.getModel();
-        model.setRowCount(0);
-        StudentDatabase data = new StudentDatabase();
+        model.setRowCount(0); // Clear existing rows
+
         List<Student> studentList = data.getAllStudents();
         for (Student s : studentList) {
             model.addRow(new Object[]{
@@ -122,12 +116,12 @@ public class MainWindow extends JFrame {
         }
     }
 
-    private StudentDatabase initTable() {
+    private void initTable(StudentDatabase data) {
         String[] cols = {"ID", "Name", "Age", "Gender", "Department", "GPA"};
         DefaultTableModel studentModel = new DefaultTableModel(cols, 0);
         students.setModel(studentModel);
 
-        StudentDatabase data = new StudentDatabase();
+
 
         List<Student> studentList = data.getAllStudents();
         for (Student s : studentList) {
@@ -140,6 +134,6 @@ public class MainWindow extends JFrame {
                     s.getGPA()
             });
         }
-        return data;
+
     }
 }
