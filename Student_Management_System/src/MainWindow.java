@@ -33,6 +33,7 @@ public class MainWindow extends JFrame {
     private JButton SearchButton_SearchPanel;
     private JTable SearchTable;
     private JTable DeleteTable;
+    private JButton UpdateButton_SearchPanel;
 
     public MainWindow() {
         setTitle("Student Management System");
