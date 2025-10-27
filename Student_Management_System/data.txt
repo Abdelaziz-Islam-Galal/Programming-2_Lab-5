@@ -1,4 +1,7 @@
-1,Alice,male,Computer Science,3.5,20
-7,Bob,male,Software Engineering,3.7,22
+1,samy,male,Computer Science,3.5,20
+7,Bob,Male,Software Engineering,3.7,22
 8378,Heiih,Male,Computer Engineering,0.2,38
 1111,Final b'aa,Female,Civil Engineering,2.0,17
+1906,xyr,Male,Biomedical Engineering,0.1,33
+12,whaat,Male,Mechanical Engineering,3.5,18
+9719,TIME!!!,Female,Electrical Engineering,1.9,27
