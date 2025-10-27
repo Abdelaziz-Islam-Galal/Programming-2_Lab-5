@@ -29,10 +29,9 @@ public class MainWindow extends JFrame {
     private JTextField IDField;
     private JLabel IDLabel;
     private JButton logout;
+    private JLabel image;
 
     public MainWindow() {
-        ImageIcon image = new ImageIcon("admin-icon.jpg");
-        setIconImage(image.getImage());
         setTitle("Student Management System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
