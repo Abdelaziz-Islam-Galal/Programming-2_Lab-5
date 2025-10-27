@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDatabase {
-    private final String filename = "Student_Management_System/data.txt";
+    private final String filename = "data.txt";
     private List<Student> students;
 
     public StudentDatabase() {
