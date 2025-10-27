@@ -35,7 +35,7 @@ public class MainWindow extends JFrame {
         // Initialize the combo boxes
         initializeComboBoxes();
         // Add button action listener
-        addButton.addActionListener(e -> addStudent(data));
+        addButton.addActionListener(e -> addStudentPanel(data));
         setContentPane(mainPanel);
         // Initialize the table
 
@@ -51,6 +51,7 @@ public class MainWindow extends JFrame {
             }
         });
     }
+
     private void initializeComboBoxes() {
         GenderBox.addItem("Male");
         GenderBox.addItem("Female");
@@ -62,7 +63,28 @@ public class MainWindow extends JFrame {
         DepartBox.addItem("Civil Engineering");
         DepartBox.addItem("Biomedical Engineering");
     }
-    private void addStudent(StudentDatabase data) {
+
+    private void initTable(StudentDatabase data) {
+        String[] cols = {"ID", "Name", "Age", "Gender", "Department", "GPA"};
+        DefaultTableModel studentModel = new DefaultTableModel(cols, 0);
+        students.setModel(studentModel);
+
+
+        List<Student> studentList = data.getAllStudents();
+        for (Student s : studentList) {
+            studentModel.addRow(new Object[]{
+                    s.getStudentId(),
+                    s.getFname(),
+                    s.getAge(),
+                    s.getGender(),
+                    s.getDepartment(),
+                    s.getGPA()
+            });
+        }
+
+    }
+
+    private void addStudentPanel(StudentDatabase data) {
         try {
             String name = nameField.getText();
             int age = Integer.parseInt(ageField.getText());
@@ -82,7 +104,7 @@ public class MainWindow extends JFrame {
             JOptionPane.showMessageDialog(this, "Student added successfully",
                     "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            clearFields();
+            clearAddStudentsFields();
             // Refresh the table
             refreshTable(data);
         } catch (NumberFormatException e) {
@@ -91,7 +113,7 @@ public class MainWindow extends JFrame {
         }
     }
 
-    private void clearFields() {
+    private void clearAddStudentsFields() {
         nameField.setText("");
         ageField.setText("");
         IDField.setText("");
@@ -99,6 +121,7 @@ public class MainWindow extends JFrame {
         GenderBox.setSelectedIndex(0);
         DepartBox.setSelectedIndex(0);
     }
+
     private void refreshTable(StudentDatabase data) {
         DefaultTableModel model = (DefaultTableModel) students.getModel();
         model.setRowCount(0); // Clear existing rows
@@ -116,24 +139,4 @@ public class MainWindow extends JFrame {
         }
     }
 
-    private void initTable(StudentDatabase data) {
-        String[] cols = {"ID", "Name", "Age", "Gender", "Department", "GPA"};
-        DefaultTableModel studentModel = new DefaultTableModel(cols, 0);
-        students.setModel(studentModel);
-
-
-
-        List<Student> studentList = data.getAllStudents();
-        for (Student s : studentList) {
-            studentModel.addRow(new Object[]{
-                    s.getStudentId(),
-                    s.getFname(),
-                    s.getAge(),
-                    s.getGender(),
-                    s.getDepartment(),
-                    s.getGPA()
-            });
-        }
-
-    }
 }
