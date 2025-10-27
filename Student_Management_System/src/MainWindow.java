@@ -33,6 +33,7 @@ public class MainWindow extends JFrame {
     private JButton SearchButton_SearchPanel;
     private JTable SearchTable;
     private JTable DeleteTable;
+    private JButton UpdateButton_SearchPanel;
 
     public MainWindow() {
         setTitle("Student Management System");
@@ -177,6 +178,46 @@ public class MainWindow extends JFrame {
                 }
             }
         });
+
+
+
+       UpdateButton_SearchPanel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = SearchTable.getSelectedRow();
+                if (selectedRow < 0) {
+                    JOptionPane.showMessageDialog(null, "Please select a row to update.");
+                    return;
+                }
+
+                try {
+                    int id = Integer.parseInt(SearchTable.getValueAt(selectedRow, 0).toString());
+                    String name = SearchTable.getValueAt(selectedRow, 1).toString();
+                    int age = Integer.parseInt(SearchTable.getValueAt(selectedRow, 2).toString());
+                    String gender = SearchTable.getValueAt(selectedRow, 3).toString();
+                    String department = SearchTable.getValueAt(selectedRow, 4).toString();
+                    float gpa = Float.parseFloat(SearchTable.getValueAt(selectedRow, 5).toString());
+
+                    Student updated = new Student(id, name, age, gender, department, gpa);
+                    data.UpdateStudent(updated);
+
+                    JOptionPane.showMessageDialog(null, "Student updated successfully!");
+                    refreshTables(data); // updates View + Delete tables too
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null,
+                            "Invalid input: " + ex.getMessage(),
+                            "Update Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+
+
+
+
+
     }
     private void deleteLogic(StudentDatabase data, DefaultTableModel DeleteModel) {
         DeleteTable.addMouseListener(new MouseAdapter() {
