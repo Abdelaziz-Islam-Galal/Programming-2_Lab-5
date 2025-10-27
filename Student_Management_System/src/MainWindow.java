@@ -124,7 +124,12 @@ public class MainWindow extends JFrame {
             });
         }
 
-        // search logic
+        searchLogic(SearchModel, data);
+
+        deleteLogic(data, DeleteModel);
+
+    }
+    private void searchLogic(DefaultTableModel SearchModel, StudentDatabase data){
         String key = KeyField_SearchPanel.getText();
         SearchButton_SearchPanel.addActionListener(new ActionListener() {
             @Override
@@ -172,9 +177,6 @@ public class MainWindow extends JFrame {
                 }
             }
         });
-
-        deleteLogic(data, DeleteModel);
-
     }
     private void deleteLogic(StudentDatabase data, DefaultTableModel DeleteModel) {
         DeleteTable.addMouseListener(new MouseAdapter() {
