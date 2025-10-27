@@ -60,7 +60,7 @@ public class Login extends JFrame {
     }
 
     private void loadUsers() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("Student_Management_System/users.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
