@@ -40,292 +40,37 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         StudentDatabase data = new StudentDatabase();
+        TablesLogic tables = new TablesLogic( ViewTable,  DeleteTable, SearchTable, data);
 
-        initializeComboBoxes();
+        AddStudentLogic addStudentLogic = new AddStudentLogic(
+                AddPanel,
+                GenderBox_AddPanel,
+                DepartBox_AddPanel,
+                ViewTable,
+                nameField_AddPanel,
+                ageField_AddPanel,
+                GPAField_AddPanel,
+                IDField_AddPanel,
+                tables
+        );
+        SearchAndUpdateLogic searchAndUpdateLogic = new SearchAndUpdateLogic(
+                KeyBox_SearchPanel,
+                KeyField_SearchPanel,
+                SearchButton_SearchPanel,
+                (DefaultTableModel) SearchTable.getModel(),
+                data
+        );
 
-        addButton_AddPanel.addActionListener(e -> addStudentPanel(data));
+        DeleteLogic deleteLogic = new DeleteLogic(DeleteTable, data, this, tables);
+
+        addButton_AddPanel.addActionListener(e -> addStudentLogic.addStudent(data));
         setContentPane(mainPanel);
 
-        initTables(data);
         pack();
         setVisible(true);
 
-        logout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                Login login = new Login();
-            }
-        });
+        new DashboardLogic(logout, this);
 
-    }
-
-    private void initializeComboBoxes() {
-        GenderBox_AddPanel.addItem("Male");
-        GenderBox_AddPanel.addItem("Female");
-        GenderBox_AddPanel.addItem("Other");
-        DepartBox_AddPanel.addItem("Computer Engineering");
-        DepartBox_AddPanel.addItem("Communication Engineering");
-        DepartBox_AddPanel.addItem("Electrical Engineering");
-        DepartBox_AddPanel.addItem("Mechanical Engineering");
-        DepartBox_AddPanel.addItem("Civil Engineering");
-        DepartBox_AddPanel.addItem("Biomedical Engineering");
-
-        KeyBox_SearchPanel.addItem("ID Key");
-        KeyBox_SearchPanel.addItem("Name Key");
-    }
-
-    private void initTables(StudentDatabase data) {
-        String[] cols = {"ID", "Name", "Age", "Gender", "Department", "GPA"};
-        DefaultTableModel ViewModel = new DefaultTableModel(cols, 0){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Make table non-editable
-            }
-        };
-        DefaultTableModel SearchModel = new DefaultTableModel(cols, 0);
-        DefaultTableModel DeleteModel = new DefaultTableModel(cols, 0){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Make table non-editable
-            }
-        };
-        // I made it view and delete tables are edit proof
-        // Note -> search table is editable because it will have the update functionality
-
-        ViewTable.setModel(ViewModel);
-        SearchTable.setModel(SearchModel);
-        DeleteTable.setModel(DeleteModel);
-
-        List<Student> studentList = data.getAllStudents();
-        for (Student s : studentList) {
-            ViewModel.addRow(new Object[]{
-                    s.getStudentId(),
-                    s.getFname(),
-                    s.getAge(),
-                    s.getGender(),
-                    s.getDepartment(),
-                    s.getGPA()
-            });
-            SearchModel.addRow(new Object[]{
-                    s.getStudentId(),
-                    s.getFname(),
-                    s.getAge(),
-                    s.getGender(),
-                    s.getDepartment(),
-                    s.getGPA()
-            });
-            DeleteModel.addRow(new Object[]{
-                    s.getStudentId(),
-                    s.getFname(),
-                    s.getAge(),
-                    s.getGender(),
-                    s.getDepartment(),
-                    s.getGPA()
-            });
-        }
-
-        searchLogic(SearchModel, data);
-
-        deleteLogic(data, DeleteModel);
-
-    }
-    private void searchLogic(DefaultTableModel SearchModel, StudentDatabase data){
-        String key = KeyField_SearchPanel.getText();
-        SearchButton_SearchPanel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SearchModel.setRowCount(0); // clear previous results
-                String selectedKey = KeyBox_SearchPanel.getSelectedItem().toString();
-                String keyText = KeyField_SearchPanel.getText().trim();
-
-                if (selectedKey.equals("ID Key")) {
-                    try {
-                        int id = Integer.parseInt(keyText);
-                        Student s = data.searchStudentById(id);
-                        if (s != null) {
-                            Object[] row = {s.getStudentId(),
-                                    s.getFname(),
-                                    s.getAge(),
-                                    s.getGender(),
-                                    s.getDepartment(),
-                                    s.getGPA()};
-                            SearchModel.addRow(row);
-                        }
-                        else {
-                            JOptionPane.showMessageDialog(null, "No student found with that ID.");
-                        }
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(null, "Please enter a valid numeric ID.");
-                    }
-                }
-                else if (selectedKey.equals("Name Key")) {
-                    List<Student> results = data.searchStudentByName(keyText);
-                    if (results != null && !results.isEmpty()) {
-                        for (Student s : results) {
-                            Object[] row = {s.getStudentId(),
-                                    s.getFname(),
-                                    s.getAge(),
-                                    s.getGender(),
-                                    s.getDepartment(),
-                                    s.getGPA()};
-                            SearchModel.addRow(row);
-                        }
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null, "No student found with that name.");
-                    }
-                }
-            }
-        });
-
-
-
-       UpdateButton_SearchPanel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedRow = SearchTable.getSelectedRow();
-                if (selectedRow < 0) {
-                    JOptionPane.showMessageDialog(null, "Please select a row to update.");
-                    return;
-                }
-
-                try {
-                    int id = Integer.parseInt(SearchTable.getValueAt(selectedRow, 0).toString());
-                    String name = SearchTable.getValueAt(selectedRow, 1).toString();
-                    int age = Integer.parseInt(SearchTable.getValueAt(selectedRow, 2).toString());
-                    String gender = SearchTable.getValueAt(selectedRow, 3).toString();
-                    String department = SearchTable.getValueAt(selectedRow, 4).toString();
-                    float gpa = Float.parseFloat(SearchTable.getValueAt(selectedRow, 5).toString());
-
-                    Student updated = new Student(id, name, age, gender, department, gpa);
-                    data.UpdateStudent(updated);
-
-                    JOptionPane.showMessageDialog(null, "Student updated successfully!");
-                    refreshTables(data); // updates View + Delete tables too
-
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null,
-                            "Invalid input: " + ex.getMessage(),
-                            "Update Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-
-
-
-
-
-
-    }
-    private void deleteLogic(StudentDatabase data, DefaultTableModel DeleteModel) {
-        DeleteTable.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 1) {
-                    int row = DeleteTable.rowAtPoint(e.getPoint());
-                    if (row >= 0) {
-                        showDeleteConfirmation(DeleteModel, row, data);
-                    }
-                }
-            }
-        });
-    }
-    private void showDeleteConfirmation(DefaultTableModel DeleteModel, int row, StudentDatabase data) {
-        int id = (Integer) DeleteModel.getValueAt(row, 0);
-        String name = (String) DeleteModel.getValueAt(row, 1);
-        String department = (String) DeleteModel.getValueAt(row, 3);
-
-        String message = "Are you sure you want to delete this record?\n\n" + "ID: " + id + "\nName: " + name + "\nDepartment: " + department;
-
-        int result = JOptionPane.showConfirmDialog(
-                this,
-                message,
-                "Confirm Delete",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE
-        );
-
-        if (result == JOptionPane.YES_OPTION) {
-            data.deleteStudent(id);
-            refreshTables(data);
-            JOptionPane.showMessageDialog(this,
-                    "Record deleted successfully!",
-                    "Success",
-                    JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-
-    private void addStudentPanel(StudentDatabase data) {
-        try {
-            String name = nameField_AddPanel.getText();
-            int age = Integer.parseInt(ageField_AddPanel.getText());
-            String gender = GenderBox_AddPanel.getSelectedItem().toString();
-            String department = DepartBox_AddPanel.getSelectedItem().toString();
-            float gpa = Float.parseFloat(GPAField_AddPanel.getText());
-            int id = Integer.parseInt(IDField_AddPanel.getText());
-
-            Student s1 = new Student(id, name, age, gender, department, gpa);
-
-            if (!data.addStudent(s1)) {
-                JOptionPane.showMessageDialog(this, "Student not added (Student id already exists)",
-                        "Input Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            JOptionPane.showMessageDialog(this, "Student added successfully",
-                    "Success", JOptionPane.INFORMATION_MESSAGE);
-
-            clearAddStudentsFields();
-
-            refreshTables(data);
-        }
-        catch (NumberFormatException e1) {
-            JOptionPane.showMessageDialog(this, "Please enter valid numbers for Age, ID, and GPA",
-                    "Input Error", JOptionPane.ERROR_MESSAGE);
-        } catch(IllegalArgumentException e2) {
-            JOptionPane.showMessageDialog(this, e2.getMessage(),
-                    "Input Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void clearAddStudentsFields() {
-        nameField_AddPanel.setText("");
-        ageField_AddPanel.setText("");
-        IDField_AddPanel.setText("");
-        GPAField_AddPanel.setText("");
-        GenderBox_AddPanel.setSelectedIndex(0);
-        DepartBox_AddPanel.setSelectedIndex(0);
-    }
-
-    private void refreshTables(StudentDatabase data) {
-        DefaultTableModel view = (DefaultTableModel) ViewTable.getModel();
-        // DefaultTableModel search = (DefaultTableModel) ViewTable.getModel(); -> updates intseld everytime the button is used
-        DefaultTableModel delete = (DefaultTableModel) DeleteTable.getModel();
-
-        view.setRowCount(0);
-        delete.setRowCount(0);
-
-        List<Student> studentList = data.getAllStudents();
-        for (Student s : studentList) {
-            view.addRow(new Object[]{
-                    s.getStudentId(),
-                    s.getFname(),
-                    s.getAge(),
-                    s.getGender(),
-                    s.getDepartment(),
-                    s.getGPA()
-            });
-            delete.addRow(new Object[]{
-                    s.getStudentId(),
-                    s.getFname(),
-                    s.getAge(),
-                    s.getGender(),
-                    s.getDepartment(),
-                    s.getGPA()
-            });
-        }
     }
 
 }
